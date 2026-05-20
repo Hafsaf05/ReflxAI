@@ -30,13 +30,13 @@ def store_memory(task, error):
         ids=[str(uuid.uuid4())]
     )
 
-def retrieve_memory(query):
+def retrieve_memory(query, k=2):
 
     embedding = model.encode(query).tolist()
 
     results = collection.query(
         query_embeddings=[embedding],
-        n_results=2
+        n_results=k
     )
 
     return results["documents"]

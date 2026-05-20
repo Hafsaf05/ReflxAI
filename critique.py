@@ -9,7 +9,7 @@ client = Groq(
     api_key=os.getenv("GROQ_API_KEY")
 )
 
-def critique_code(code):
+def critique_code(code, model="llama-3.3-70b-versatile", temperature=0.0):
 
     prompt = f"""
 You are a senior Python reviewer.
@@ -29,7 +29,8 @@ CODE:
 """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model=model,
+        temperature=temperature,
 
         messages=[
             {
@@ -42,7 +43,7 @@ CODE:
     return response.choices[0].message.content
 
 
-def optimize_code(code, critique):
+def optimize_code(code, critique, model="llama-3.3-70b-versatile", temperature=0.0):
 
     prompt = f"""
 You are an expert Python optimizer.
@@ -59,7 +60,8 @@ Return ONLY improved executable Python code.
 """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model=model,
+        temperature=temperature,
 
         messages=[
             {

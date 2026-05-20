@@ -1,7 +1,7 @@
 import subprocess
 import tempfile
 
-def run_code(code):
+def run_code(code, timeout=5):
 
     with tempfile.NamedTemporaryFile(
         mode="w",
@@ -23,7 +23,7 @@ def run_code(code):
             capture_output=True,
             text=True,
 
-            timeout=5
+            timeout=timeout
         )
 
         return {

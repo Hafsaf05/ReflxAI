@@ -9,7 +9,7 @@ client = Groq(
     api_key=os.getenv("GROQ_API_KEY")
 )
 
-def generate_code(task, memories=None):
+def generate_code(task, memories=None, model="llama-3.3-70b-versatile", temperature=0.0):
 
     memory_context = ""
 
@@ -31,7 +31,8 @@ Task:
 """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model=model,
+        temperature=temperature,
 
         messages=[
             {
@@ -48,7 +49,7 @@ Task:
 
     return code
 
-def fix_code(old_code, error):
+def fix_code(old_code, error, model="llama-3.3-70b-versatile", temperature=0.0):
 
     prompt = f"""
 The following Python code failed.
@@ -65,7 +66,8 @@ Return ONLY executable Python code.
 """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model=model,
+        temperature=temperature,
 
         messages=[
             {
